@@ -22,7 +22,7 @@ function cities(){
     {
         city: 'Superior',
         population: 27244
-    }]
+    }];
 
     //create the table element
     var table = document.createElement("table");
@@ -46,27 +46,59 @@ function cities(){
 
     document.querySelector("#mydiv").appendChild(table);
 	
-}
+
 document.querySelector('#mydiv').style.color = 'Blue';
 
     //change the text size and alignment
     document.querySelector('#mydiv').style.fontSize = '2em';
     document.querySelector('#mydiv').style.textAlign = 'left';
+    //add the addEvent function
+    addEvents();
+    //add addListener function
+    document.querySelector("table").addEventListener('click', clickme);
+}
 
-    //get the text color and add it as text to the div
-//    var thecolor = document.querySelector('#mydiv').style.color;
-//    document.querySelector('#mydiv').insertAdjacentHTML('beforeend',thecolor);
+//click functionality to the table is added here
+function clickme(){
 
-document.addEventListener('DOMContentLoaded',initialize)
+    alert('Hey, you clicked me!');
+}
+    
+
+function addEvents(){
+
+	document.querySelector("table").addEventListener("mouseover", function(){
+		
+		var color = "rgb(";
+
+		for (var i=0; i<3; i++){
+
+			var random = Math.round(Math.random() * 255);
+
+			color += random;
+
+			if (i<2){
+				color += ",";
+			
+			} else {
+				color += ")";
+		}
+		}
+
+		document.querySelector("table").style.color = color;
+	});
+};
+
+document.addEventListener('DOMContentLoaded',initialize);
 
 function jsAjax(){
-    // Step 1: Create the data request 
+    //Create the data request 
     var request = new Request('MegaCities.geojson');
-    //Step 2: define Fetch parameters 
+    //define Fetch parameters 
     var init = {
         method: 'GET'
     }
-    //Step 3: use Fetch to retrieve data
+    //use Fetch to retrieve data
     fetch(request, init)
         .then(conversion) //Step 4 convert data to usable form
         .then(callback) //Step 5 Send retrieved data to a callback function
